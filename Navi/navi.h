@@ -5,6 +5,8 @@
 #include <QWidget>
 #include <QtSvg/QtSvg>
 #include <QtSvg/QSvgRenderer>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 class Navi : public QWidget
 {
@@ -20,7 +22,10 @@ public:
     bool phoneScreen = false;
 
 private:
-    //######### GENERAL PLAYER #########
+
+    //######### GENERAL #########
+    QTimer *timer;
+
     QPainter *backGroundRect = new QPainter (this);
     QPainter *paninter_return = new QPainter (this);
     QSvgRenderer *renderer_returnIcon;
@@ -52,6 +57,14 @@ private:
     QPainter *musicPlayer_List = new QPainter (this);
     QPainter *musicPlayer_CurrentSongImg = new QPainter (this);
 
+    QMediaPlayer *player = new QMediaPlayer;
+    QMediaPlaylist *playlist = new QMediaPlaylist;
+    bool isPlaying = false;
+    QPainter *currentMadiaTime = new QPainter (this);
+    QPainter *currentMadiaTotalTime = new QPainter (this);
+    QPainter *mediaTimeBar = new QPainter (this);
+    QPainter *currentMadiaTimeBar = new QPainter (this);
+
     //######### PHONE PLAYER #########
     QPainter *phonePlayerCard = new QPainter (this);
     QSvgRenderer *renderer_phoneIcon;
@@ -61,8 +74,8 @@ private:
 protected:
     void paintEvent(QPaintEvent *event) override;
 
-    void mouseMoveEvent(QMouseEvent *event);
-    void mousePressEvent(QMouseEvent *eventPress);
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *eventPress) override;
 
 };
 

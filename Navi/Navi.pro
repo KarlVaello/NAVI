@@ -1,5 +1,6 @@
-QT += widgets svg core gui serialport multimedia multimediawidgets
+QT += widgets svg core gui multimedia multimediawidgets
 
+QMAKE_CXXFLAGS += -std=c++0x
 
 SOURCES += \
     main.cpp \
@@ -7,3 +8,6 @@ SOURCES += \
 
 HEADERS += \
     navi.h
+
+RESOURCES += \
+    resources.qrc

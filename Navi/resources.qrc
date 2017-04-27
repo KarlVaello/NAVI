@@ -1,0 +1,13 @@
+<RCC version="1.0">
+<qresource>
+    <file>Resources/backg.jpg</file>
+    <file>Resources/call-answer.svg</file>
+    <file>Resources/location-on-map.svg</file>
+    <file>Resources/player_PLAY.svg</file>
+    <file>Resources/player_STOP.svg</file>
+    <file>Resources/player_PREV.svg</file>
+    <file>Resources/player_NEXT.svg</file>
+    <file>Resources/return-button.svg</file>
+
+</qresource>
+</RCC>
