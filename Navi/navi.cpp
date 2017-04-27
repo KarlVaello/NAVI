@@ -40,7 +40,7 @@ void Navi::paintEvent(QPaintEvent *)
     //backGroundRect->end();
     if(homeScreen){
         QPainter painter(this);
-        painter.drawImage(QRect(0,0,800,480), QImage(":/Resources/backg.jpg"));
+        painter.drawImage(QRect(0,0,800,480), QImage(QString(":/Resources/backg.jpg")));
         painter.end();
 
         navigationCard->begin(this);
