@@ -165,11 +165,13 @@ compiler_rcc_clean:
 debug\qrc_resources.cpp: ..\Navi\resources.qrc \
 		C:\Qt\5.8\msvc2015_64\bin\rcc.exe \
 		..\Navi\Resources\player_PREV.svg \
-		..\Navi\Resources\location-on-map.svg \
 		..\Navi\Resources\player_STOP.svg \
+		..\Navi\Resources\home.svg \
 		..\Navi\Resources\player_PLAY.svg \
 		..\Navi\Resources\return-button.svg \
+		..\Navi\Resources\music.svg \
 		..\Navi\Resources\call-answer.svg \
+		..\Navi\Resources\navigation.svg \
 		..\Navi\Resources\player_NEXT.svg \
 		..\Navi\Resources\backg.jpg
 	C:\Qt\5.8\msvc2015_64\bin\rcc.exe -name resources ..\Navi\resources.qrc -o debug\qrc_resources.cpp

@@ -12,131 +12,96 @@
 Navi::Navi(QWidget *parent)
     : QWidget(parent)
 {
-
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->start(1);
 
     setWindowTitle(tr("VCS"));
 
-    resize(800, 480);
+    resize(display_width, display_height);
 
-    renderer_navigationIcon = new QSvgRenderer(QString(":/Resources/location-on-map.svg"));
+    renderer_navigationIcon = new QSvgRenderer(QString(":/Resources/navigation.svg"));
     renderer_phoneIcon = new QSvgRenderer(QString(":/Resources/call-answer.svg"));
     renderer_stopIcon = new QSvgRenderer(QString(":/Resources/player_STOP.svg"));
     renderer_nextIcon = new QSvgRenderer(QString(":/Resources/player_NEXT.svg"));
     renderer_previousIcon = new QSvgRenderer(QString(":/Resources/player_PREV.svg"));
-    renderer_returnIcon = new QSvgRenderer(QString(":/Resources/return-button.svg"));
-
-
-
+    renderer_homeIcon= new QSvgRenderer(QString(":/Resources/home.svg"));
+    renderer_musicIcon= new QSvgRenderer(QString(":/Resources/music.svg"));
 }
 
 void Navi::paintEvent(QPaintEvent *)
 {
+    painter_backgroundColor->begin(this);
+    painter_backgroundColor->fillRect(QRect(0,0,display_width,display_height),QColor(63,63,63,255));
+    painter_backgroundColor->end();
 
-    //backGroundRect->begin(this);
-    //backGroundRect->fillRect(QRect(0,0,800,480),QColor(246,241,237,255));
-    //backGroundRect->end();
-    if(homeScreen){
-        QPainter painter(this);
-        painter.drawImage(QRect(0,0,800,480), QImage(QString(":/Resources/backg.jpg")));
-        painter.end();
+    paniter_sideBarBackground->begin(this);
+    paniter_sideBarBackground->fillRect(QRect(0,0,80,display_height),QColor(201,201,189,255));
+    paniter_sideBarBackground->end();
 
-        navigationCard->begin(this);
-        navigationCard->fillRect(QRect(30,90,225,360),QColor(255,255,255,100));
-        navigationCard->end();
-
-        painter_navigationIcon->begin(this);
-        painter_navigationIcon->translate(60, 180);
-        painter_navigationIcon->scale(0.2,0.32);
-        renderer_navigationIcon->render(painter_navigationIcon);
-        painter_navigationIcon->end();
+    painter_selectedItemOnSideBarBackground->begin(this);
+    painter_selectedItemOnSideBarBackground->fillRect(QRect(0,80 * itemSelected,80,80),QColor(182,182,171,255));
+    painter_selectedItemOnSideBarBackground->end();
 
 
-        //######### MUSIC PLAYER #########
-        musicPlayer_CardBack->begin(this);
-        musicPlayer_CardBack->fillRect(QRect(289,90,225,360),QColor(255,255,255,100));
-        musicPlayer_CardBack->end();
+    painter_homeIcon->begin(this);
+    painter_homeIcon->translate(7, 10);
+    painter_homeIcon->scale(0.08,0.12);
+    renderer_homeIcon->render(painter_homeIcon);
+    painter_homeIcon->end();
 
-        musicPlayer_CardUpBar->begin(this);
-        musicPlayer_CardUpBar->fillRect(QRect(289,90,225,40),QColor(100,100,100,100));
-        musicPlayer_CardUpBar->end();
+    painter_musicIcon->begin(this);
+    painter_musicIcon->translate(22, 100);
+    painter_musicIcon->scale(0.04,0.07);
+    renderer_musicIcon->render(painter_musicIcon);
+    painter_musicIcon->end();
 
-        musicPlayer_CardDownBar->begin(this);
-        musicPlayer_CardDownBar->fillRect(QRect(289,310,225,140),QColor(234,234,234,255));
-        musicPlayer_CardDownBar->end();
+    painter_navigationIcon->begin(this);
+    painter_navigationIcon->translate(23, 185);
+    painter_navigationIcon->scale(0.04,0.07);
+    renderer_navigationIcon->render(painter_navigationIcon);
+    painter_navigationIcon->end();
+
+
+    painter_phoneIcon->begin(this);
+    painter_phoneIcon->translate(23, 265);
+    painter_phoneIcon->scale(0.04,0.07);
+    renderer_phoneIcon->render(painter_phoneIcon);
+    painter_phoneIcon->end();
 
 
 
+    if(itemSelected == 1){
 
-        //######### PHONE #########
-
-        phonePlayerCard->begin(this);
-        phonePlayerCard->fillRect(QRect(545,90,225,360),QColor(255,255,255,100));
-        phonePlayerCard->end();
-
-        painter_phoneIcon->begin(this);
-        painter_phoneIcon->translate(600, 180);
-        painter_phoneIcon->scale(0.15,0.28);
-        renderer_phoneIcon->render(painter_phoneIcon);
-        painter_phoneIcon->end();
-
-    }
-
-    if(playerScreen){
-
-        QPainter painter(this);
-        painter.drawImage(QRect(0,-200,800,800), QImage("C:/Users/Karl/Desktop/NAVI/Resources/epBack2.jpg"));
-        painter.end();
-
-        musicPlayer_CardBack->begin(this);
-        musicPlayer_CardBack->fillRect(QRect(0,0,800,480),QColor(255,255,255,110));
-        musicPlayer_CardBack->end();
-
-        QPainter painter3(this);
-        painter3.drawImage(QRect(30,30,200,200), QImage("C:/Users/Karl/Desktop/NAVI/Resources/epBack2.jpg"));
-        painter3.end();
-
-        musicPlayer_CardUpBar->begin(this);
-        musicPlayer_CardUpBar->fillRect(QRect(0,320,800,50),QColor(235,235,235,110));
-        musicPlayer_CardUpBar->end();
 
         musicPlayer_CardDownBar->begin(this);
-        musicPlayer_CardDownBar->fillRect(QRect(0,370,800,110),QColor(234,234,234,255));
+        musicPlayer_CardDownBar->fillRect(QRect(80,475,1024,130),QColor(234,234,234,255));
         musicPlayer_CardDownBar->end();
 
         paniter_musicPlayer_Stop->begin(this);
-        paniter_musicPlayer_Stop->translate(25, 395);
-        paniter_musicPlayer_Stop->scale(0.08,0.13);
+        paniter_musicPlayer_Stop->translate(520, 525);
+        paniter_musicPlayer_Stop->scale(0.06,0.10);
         renderer_stopIcon->render(paniter_musicPlayer_Stop);
         paniter_musicPlayer_Stop->end();
 
         paniter_musicPlayer_Previous->begin(this);
-        paniter_musicPlayer_Previous->translate(110, 405);
-        paniter_musicPlayer_Previous->scale(0.048,0.08);
+        paniter_musicPlayer_Previous->translate(450, 536);
+        paniter_musicPlayer_Previous->scale(0.038,0.065);
         renderer_previousIcon->render(paniter_musicPlayer_Previous);
         paniter_musicPlayer_Previous->end();
 
         paniter_musicPlayer_Next->begin(this);
-        paniter_musicPlayer_Next->translate(160, 405);
-        paniter_musicPlayer_Next->scale(0.048,0.08);
+        paniter_musicPlayer_Next->translate(610, 536);
+        paniter_musicPlayer_Next->scale(0.038,0.065);
         renderer_nextIcon->render(paniter_musicPlayer_Next);
         paniter_musicPlayer_Next->end();
-
-        paninter_return->begin(this);
-        paninter_return->translate(720, 405);
-        paninter_return->scale(0.048,0.08);
-        renderer_returnIcon->render(paninter_return);
-        paninter_return->end();
-
 
         currentMadiaTime->begin(this);
         currentMadiaTime->setPen(QColor(160, 160, 160));
         currentMadiaTime->setFont(QFont("Arial", 14));
         int seconds2 = (player->position() / 1000) % 60 ;
         int minutes2 = ((player->position() / (1000*60)) % 60);
-        currentMadiaTime->drawText(QRect(15, 335 ,40,20),
+        currentMadiaTime->drawText(QRect(95, 485 ,40,20),
                                    QString::number(minutes2) + ":" + QString::number(seconds2),
                                    Qt::AlignRight | Qt::AlignVCenter);
         currentMadiaTime->end();
@@ -147,24 +112,24 @@ void Navi::paintEvent(QPaintEvent *)
         int seconds = (player->duration() / 1000) % 60 ;
         int minutes = ((player->duration() / (1000*60)) % 60);
 
-        currentMadiaTotalTime->drawText(QRect(750, 335 ,40,20),
+        currentMadiaTotalTime->drawText(QRect(965, 485 ,40,20),
                                         QString::number(minutes) + ":" + QString::number(seconds),
                                         Qt::AlignLeft | Qt::AlignVCenter);
         currentMadiaTotalTime->end();
 
         mediaTimeBar->begin(this);
-        mediaTimeBar->fillRect(QRect(70,340,660,10),QColor(70,70,70,255));
+        mediaTimeBar->fillRect(QRect(150,490,800,10),QColor(70,70,70,255));
         mediaTimeBar->end();
 
         mediaTimeBar->begin(this);
-        int a = (float)(player->position()*660.0f)/ (float)player->duration();
-        mediaTimeBar->fillRect(QRect(70,340,a,10),QColor(160,160,160,255));
+        int a = (float)(player->position()*800.0f)/ (float)player->duration();
+        mediaTimeBar->fillRect(QRect(150,490,a,10),QColor(160,160,160,255));
         mediaTimeBar->end();
 
 
         if(!isPlaying){
-            playlist->addMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/Below My Feet.mp3"));
-            playlist->addMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/Babel.mp3"));
+            playlist->addMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/Below My Feet.mp3"));
+            playlist->addMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/Babel.mp3"));
 
             playlist->setCurrentIndex(1);
 
@@ -178,21 +143,6 @@ void Navi::paintEvent(QPaintEvent *)
         }
     }
 
-    if(navScreen){
-        paninter_return->begin(this);
-        paninter_return->translate(720, 405);
-        paninter_return->scale(0.048,0.08);
-        renderer_returnIcon->render(paninter_return);
-        paninter_return->end();
-    }
-
-    if(phoneScreen){
-        paninter_return->begin(this);
-        paninter_return->translate(720, 405);
-        paninter_return->scale(0.048,0.08);
-        renderer_returnIcon->render(paninter_return);
-        paninter_return->end();
-    }
 
 }
 
@@ -202,93 +152,38 @@ void Navi::mouseMoveEvent(QMouseEvent *event){
 }
 
 void Navi::mousePressEvent(QMouseEvent *eventPress){
-    if(homeScreen){
-        qDebug() << "clickPos[homeScreen]: " << eventPress->pos();
-        if (eventPress->pos().x() >= 30 && eventPress->pos().x() <=30 + 224){
-            if (eventPress->pos().y() >= 60 && eventPress->pos().y() <=60 + 360){
-                navScreen = true;
+    qDebug() << "clickPos[homeScreen]: " << eventPress->pos();
+    if (eventPress->pos().x() >= 0 && eventPress->pos().x() <=80){
+        if (eventPress->pos().y() >= 0 && eventPress->pos().y() <=80 ){
+            itemSelected = 0;
+            update();
 
-                homeScreen = false;
-                playerScreen = false;
-                phoneScreen = false;
-
-                update();
-
-                qDebug() << "nav";
-            }
-        }else if (eventPress->pos().x() >= 289 && eventPress->pos().x() <=289 + 224){
-            if (eventPress->pos().y() >= 60 && eventPress->pos().y() <=60 + 360){
-                playerScreen = true;
-
-                homeScreen = false;
-                navScreen = false;
-                phoneScreen = false;
-
-                update();
-
-                qDebug() << "player";
-            }
-        }else if (eventPress->pos().x() >= 545 && eventPress->pos().x() <=545 + 224){
-            if (eventPress->pos().y() >= 60 && eventPress->pos().y() <=60 + 360){
-                phoneScreen = true;
-
-                homeScreen = false;
-                navScreen = false;
-                playerScreen = false;
-
-                update();
-
-                qDebug() << "phone";
-            }
+            qDebug() << "hs";
         }
     }
+    if (eventPress->pos().x() >= 0 && eventPress->pos().x() <=80){
+        if (eventPress->pos().y() > 80 && eventPress->pos().y() <=160){
+            itemSelected = 1;
+            update();
 
-    if(navScreen){
-        qDebug() << "clickPos[playerScreen]: " << eventPress->pos();
-
-        if (eventPress->pos().x() >= 720 && eventPress->pos().x() <=720 + 40){
-            if (eventPress->pos().y() >= 405 && eventPress->pos().y() <=405 + 40){
-
-                homeScreen = true;
-                navScreen = false;
-
-                update();
-            }
+            qDebug() << "mp";
         }
     }
+    if (eventPress->pos().x() >= 0 && eventPress->pos().x() <=80){
+        if (eventPress->pos().y() > 160 && eventPress->pos().y() <=250){
+            itemSelected = 2;
+            update();
 
-
-
-    if(playerScreen){
-        qDebug() << "clickPos[playerScreen]: " << eventPress->pos();
-        qDebug() << "hey2" << player->duration();
-
-        if (eventPress->pos().x() >= 720 && eventPress->pos().x() <=720 + 40){
-            if (eventPress->pos().y() >= 405 && eventPress->pos().y() <=405 + 40){
-
-                homeScreen = true;
-                playerScreen = false;
-
-                update();
-            }
-        }
-        update();
-
-    }
-
-    if(phoneScreen){
-        qDebug() << "clickPos[playerScreen]: " << eventPress->pos();
-
-        if (eventPress->pos().x() >= 720 && eventPress->pos().x() <=720 + 40){
-            if (eventPress->pos().y() >= 405 && eventPress->pos().y() <=405 + 40){
-
-                homeScreen = true;
-                phoneScreen = false;
-
-                update();
-            }
+            qDebug() << "nav";
         }
     }
+    if (eventPress->pos().x() >= 0 && eventPress->pos().x() <=80){
+        if (eventPress->pos().y() > 250 && eventPress->pos().y() <=330){
+            itemSelected = 3;
+            update();
 
+            qDebug() << "phone";
+        }
+    }
 }
 

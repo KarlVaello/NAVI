@@ -16,10 +16,14 @@ class Navi : public QWidget
 public:
     Navi(QWidget *parent = 0);
 
+    int display_height = 600;
+    int display_width = 1024;
+
     bool homeScreen = true;
     bool navScreen = false;
     bool playerScreen = false;
     bool phoneScreen = false;
+    int itemSelected = 0; // home = 0; mp = 1; nav = 2; phone = 3
 
 private:
 
@@ -30,15 +34,26 @@ private:
     QPainter *paninter_return = new QPainter (this);
     QSvgRenderer *renderer_returnIcon;
 
+    QPainter *paniter_sideBarBackground = new QPainter (this);
+    QPainter *painter_selectedItemOnSideBarBackground = new QPainter (this);
+
+    QPainter *painter_homeIcon = new QPainter (this);
+    QSvgRenderer *renderer_homeIcon;
+
+    QPainter *painter_navigationIcon = new QPainter (this);
+    QSvgRenderer *renderer_navigationIcon;
+
+    QPainter *painter_phoneIcon = new QPainter (this);
+    QSvgRenderer *renderer_phoneIcon;
+
+    QPainter *painter_musicIcon = new QPainter (this);
+    QSvgRenderer *renderer_musicIcon;
 
     //######### NAV PLAYER #########
-    QPainter *navigationCard = new QPainter (this);
+    QPainter *painter_backgroundColor = new QPainter (this);
 
-    QSvgRenderer *renderer_navigationIcon;
-    QPainter *painter_navigationIcon = new QPainter (this);
 
     //######### MUSIC PLAYER #########
-    QPainter *musicPlayer_CardBack = new QPainter (this);
     QPainter *musicPlayer_CardUpBar = new QPainter (this);
     QPainter *musicPlayer_CardDownBar = new QPainter (this);
 
@@ -66,9 +81,7 @@ private:
     QPainter *currentMadiaTimeBar = new QPainter (this);
 
     //######### PHONE PLAYER #########
-    QPainter *phonePlayerCard = new QPainter (this);
-    QSvgRenderer *renderer_phoneIcon;
-    QPainter *painter_phoneIcon = new QPainter (this);
+
 
 
 protected:
