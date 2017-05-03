@@ -24,20 +24,21 @@ Navi::Navi(QWidget *parent)
 
     renderer_navigationIcon = new QSvgRenderer(QString(":/Resources/navigation.svg"));
     renderer_phoneIcon = new QSvgRenderer(QString(":/Resources/call-answer.svg"));
+    renderer_playIcon = new QSvgRenderer(QString(":/Resources/player_PLAY.svg"));
     renderer_stopIcon = new QSvgRenderer(QString(":/Resources/player_STOP.svg"));
     renderer_nextIcon = new QSvgRenderer(QString(":/Resources/player_NEXT.svg"));
     renderer_previousIcon = new QSvgRenderer(QString(":/Resources/player_PREV.svg"));
     renderer_homeIcon= new QSvgRenderer(QString(":/Resources/home.svg"));
     renderer_musicIcon= new QSvgRenderer(QString(":/Resources/music.svg"));
 
-    QDir export_folder("/Users/cvaello/Desktop/NAVI");
+    QDir export_folder("C:/Users/Karl/Desktop/NAVI/");
     export_folder.setNameFilters(QStringList()<<"*.mp3");
     qDebug() << export_folder.entryList();
     fileList = export_folder.entryList();
-    qDebug() << fileList.at(1);
+    qDebug() << fileList.at(currentSongPos);
 
-    player->setMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/" + fileList.at(0)));
-    player->setVolume(50);
+    player->setMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/" + fileList.at(currentSongPos)));
+    player->setVolume(100);
 
     player->play();
     isPlaying = true;
@@ -63,8 +64,6 @@ void Navi::paintEvent(QPaintEvent *)
     painter_timeLabel->setFont(QFont("Calibri", 20));
     painter_timeLabel->drawText(QRect(90, 10 ,120,30),time->currentTime().toString("hh:mm"), Qt::AlignHCenter | Qt::AlignVCenter);
     painter_timeLabel->end();
-
-
 
     painter_selectedItemOnSideBarBackground->begin(this);
     painter_selectedItemOnSideBarBackground->fillRect(QRect(0,80 * itemSelected,80,80),QColor(182,182,171,255));
@@ -106,13 +105,19 @@ void Navi::paintEvent(QPaintEvent *)
         musicPlayer_CardDownBar->fillRect(QRect(80,475,1024,130),QColor(234,234,234,255));
         musicPlayer_CardDownBar->end();
 
-
-        paniter_musicPlayer_Stop->begin(this);
-        paniter_musicPlayer_Stop->translate(520, 525);
-        paniter_musicPlayer_Stop->scale(0.06,0.10);
-        renderer_stopIcon->render(paniter_musicPlayer_Stop);
-        paniter_musicPlayer_Stop->end();
-
+        if(!isPlaying){
+            paniter_musicPlayer_Play->begin(this);
+            paniter_musicPlayer_Play->translate(520, 525);
+            paniter_musicPlayer_Play->scale(0.06,0.10);
+            renderer_playIcon->render(paniter_musicPlayer_Play);
+            paniter_musicPlayer_Play->end();
+        }else{
+            paniter_musicPlayer_Stop->begin(this);
+            paniter_musicPlayer_Stop->translate(520, 525);
+            paniter_musicPlayer_Stop->scale(0.06,0.10);
+            renderer_stopIcon->render(paniter_musicPlayer_Stop);
+            paniter_musicPlayer_Stop->end();
+        }
         paniter_musicPlayer_Previous->begin(this);
         paniter_musicPlayer_Previous->translate(450, 536);
         paniter_musicPlayer_Previous->scale(0.038,0.065);
@@ -179,16 +184,13 @@ void Navi::mousePressEvent(QMouseEvent *eventPress){
         if (eventPress->pos().y() >= 0 && eventPress->pos().y() <=80 ){
             itemSelected = 0;
             update();
-
             qDebug() << "hs";
         }
     }
     if (eventPress->pos().x() >= 0 && eventPress->pos().x() <=80){
         if (eventPress->pos().y() > 80 && eventPress->pos().y() <=160){
             itemSelected = 1;
-
             update();
-
             qDebug() << "mp";
         }
     }
@@ -196,7 +198,6 @@ void Navi::mousePressEvent(QMouseEvent *eventPress){
         if (eventPress->pos().y() > 160 && eventPress->pos().y() <=250){
             itemSelected = 2;
             update();
-
             qDebug() << "nav";
         }
     }
@@ -204,7 +205,6 @@ void Navi::mousePressEvent(QMouseEvent *eventPress){
         if (eventPress->pos().y() > 250 && eventPress->pos().y() <=330){
             itemSelected = 3;
             update();
-
             qDebug() << "phone";
         }
     }
@@ -215,22 +215,33 @@ void Navi::mousePressEvent(QMouseEvent *eventPress){
             if (eventPress->pos().y() > 525 && eventPress->pos().y() <=585){
                 if (isPlaying){
                     player->pause();
-                    update();
                     isPlaying = false;
+                    update();
+
                 }else{
                     player->play();
+                    isPlaying = true;
                     update();
+
                 }
             }
         }
         if (eventPress->pos().x() >= 450 && eventPress->pos().x() <= 490){
             if (eventPress->pos().y() > 525 && eventPress->pos().y() <=585){
-              //player->setMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/" + fileList.at(1)));
+                if(currentSongPos > 0){
+                currentSongPos--;
+                player->setMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/" + fileList.at(currentSongPos)));
+                player->play();
+                }
             }
         }
         if (eventPress->pos().x() >= 610 && eventPress->pos().x() <= 650){
             if (eventPress->pos().y() > 525 && eventPress->pos().y() <=585){
-                player->setMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/" + fileList.at(1)));
+                if(currentSongPos < fileList.length()-1){
+                    currentSongPos++;
+                    player->setMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/" + fileList.at(currentSongPos)));
+                    player->play();
+                }
             }
         }
     }

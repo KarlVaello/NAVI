@@ -665,6 +665,7 @@ release\moc_navi.cpp: C:\Qt\5.8\msvc2015_64\include\QtWidgets\QWidget \
 		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\QMediaPlaylist \
 		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\qmediaplaylist.h \
 		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\qmediabindableinterface.h \
+		C:\Qt\5.8\msvc2015_64\include\QtCore\QDir \
 		..\Navi\navi.h \
 		release\moc_predefs.h \
 		C:\Qt\5.8\msvc2015_64\bin\moc.exe
@@ -1167,7 +1168,8 @@ release\main.obj: ..\Navi\main.cpp C:\Qt\5.8\msvc2015_64\include\QtWidgets\QAppl
 		C:\Qt\5.8\msvc2015_64\include\QtNetwork\qnetworkconfiguration.h \
 		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\QMediaPlaylist \
 		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\qmediaplaylist.h \
-		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\qmediabindableinterface.h
+		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\qmediabindableinterface.h \
+		C:\Qt\5.8\msvc2015_64\include\QtCore\QDir
 
 release\navi.obj: ..\Navi\navi.cpp ../Navi/navi.h \
 		C:\Qt\5.8\msvc2015_64\include\QtWidgets\QWidget \
@@ -1650,6 +1652,7 @@ release\navi.obj: ..\Navi\navi.cpp ../Navi/navi.h \
 		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\QMediaPlaylist \
 		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\qmediaplaylist.h \
 		C:\Qt\5.8\msvc2015_64\include\QtMultimedia\qmediabindableinterface.h \
+		C:\Qt\5.8\msvc2015_64\include\QtCore\QDir \
 		C:\Qt\5.8\msvc2015_64\include\QtWidgets\QApplication \
 		C:\Qt\5.8\msvc2015_64\include\QtCore\QDebug \
 		C:\Qt\5.8\msvc2015_64\include\QtCore\QDateTime

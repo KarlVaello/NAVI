@@ -27,6 +27,8 @@ public:
     bool phoneScreen = false;
     int itemSelected = 0; // home = 0; mp = 1; nav = 2; phone = 3
 
+    int currentSongPos = 0;
+
 private:
 
     //######### GENERAL #########
