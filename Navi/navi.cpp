@@ -7,16 +7,18 @@
 #include <QDateTime>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
-
+#include <QDir>
+#include <QStringList>
 
 Navi::Navi(QWidget *parent)
     : QWidget(parent)
 {
+    time = new QTime();
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->start(1);
 
-    setWindowTitle(tr("VCS"));
+    setWindowTitle(tr("NAVI"));
 
     resize(display_width, display_height);
 
@@ -27,17 +29,42 @@ Navi::Navi(QWidget *parent)
     renderer_previousIcon = new QSvgRenderer(QString(":/Resources/player_PREV.svg"));
     renderer_homeIcon= new QSvgRenderer(QString(":/Resources/home.svg"));
     renderer_musicIcon= new QSvgRenderer(QString(":/Resources/music.svg"));
+
+    QDir export_folder("/Users/cvaello/Desktop/NAVI");
+    export_folder.setNameFilters(QStringList()<<"*.mp3");
+    qDebug() << export_folder.entryList();
+    fileList = export_folder.entryList();
+    qDebug() << fileList.at(1);
+
+    player->setMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/" + fileList.at(0)));
+    player->setVolume(50);
+
+    player->play();
+    isPlaying = true;
+
 }
 
 void Navi::paintEvent(QPaintEvent *)
 {
     painter_backgroundColor->begin(this);
-    painter_backgroundColor->fillRect(QRect(0,0,display_width,display_height),QColor(63,63,63,255));
+    painter_backgroundColor->fillRect(QRect(0,0,display_width,display_height),QColor(110, 110, 110, 255));
     painter_backgroundColor->end();
 
     paniter_sideBarBackground->begin(this);
     paniter_sideBarBackground->fillRect(QRect(0,0,80,display_height),QColor(201,201,189,255));
     paniter_sideBarBackground->end();
+
+    painter_upBar->begin(this);
+    painter_upBar->fillRect(QRect(80,0,display_width-80,50),QColor(52, 73, 94, 255));
+    painter_upBar->end();
+
+    painter_timeLabel->begin(this);
+    painter_timeLabel->setPen(QColor(220, 220, 220));
+    painter_timeLabel->setFont(QFont("Calibri", 20));
+    painter_timeLabel->drawText(QRect(90, 10 ,120,30),time->currentTime().toString("hh:mm"), Qt::AlignHCenter | Qt::AlignVCenter);
+    painter_timeLabel->end();
+
+
 
     painter_selectedItemOnSideBarBackground->begin(this);
     painter_selectedItemOnSideBarBackground->fillRect(QRect(0,80 * itemSelected,80,80),QColor(182,182,171,255));
@@ -45,27 +72,27 @@ void Navi::paintEvent(QPaintEvent *)
 
 
     painter_homeIcon->begin(this);
-    painter_homeIcon->translate(7, 10);
-    painter_homeIcon->scale(0.08,0.12);
+    painter_homeIcon->translate(9, 10);
+    painter_homeIcon->scale(0.06,0.09);
     renderer_homeIcon->render(painter_homeIcon);
     painter_homeIcon->end();
 
     painter_musicIcon->begin(this);
-    painter_musicIcon->translate(22, 100);
-    painter_musicIcon->scale(0.04,0.07);
+    painter_musicIcon->translate(23, 104);
+    painter_musicIcon->scale(0.03,0.055);
     renderer_musicIcon->render(painter_musicIcon);
     painter_musicIcon->end();
 
     painter_navigationIcon->begin(this);
     painter_navigationIcon->translate(23, 185);
-    painter_navigationIcon->scale(0.04,0.07);
+    painter_navigationIcon->scale(0.03,0.055);
     renderer_navigationIcon->render(painter_navigationIcon);
     painter_navigationIcon->end();
 
 
     painter_phoneIcon->begin(this);
     painter_phoneIcon->translate(23, 265);
-    painter_phoneIcon->scale(0.04,0.07);
+    painter_phoneIcon->scale(0.03,0.055);
     renderer_phoneIcon->render(painter_phoneIcon);
     painter_phoneIcon->end();
 
@@ -74,9 +101,11 @@ void Navi::paintEvent(QPaintEvent *)
     if(itemSelected == 1){
 
 
+
         musicPlayer_CardDownBar->begin(this);
         musicPlayer_CardDownBar->fillRect(QRect(80,475,1024,130),QColor(234,234,234,255));
         musicPlayer_CardDownBar->end();
+
 
         paniter_musicPlayer_Stop->begin(this);
         paniter_musicPlayer_Stop->translate(520, 525);
@@ -95,6 +124,7 @@ void Navi::paintEvent(QPaintEvent *)
         paniter_musicPlayer_Next->scale(0.038,0.065);
         renderer_nextIcon->render(paniter_musicPlayer_Next);
         paniter_musicPlayer_Next->end();
+
 
         currentMadiaTime->begin(this);
         currentMadiaTime->setPen(QColor(160, 160, 160));
@@ -117,30 +147,22 @@ void Navi::paintEvent(QPaintEvent *)
                                         Qt::AlignLeft | Qt::AlignVCenter);
         currentMadiaTotalTime->end();
 
-        mediaTimeBar->begin(this);
-        mediaTimeBar->fillRect(QRect(150,490,800,10),QColor(70,70,70,255));
-        mediaTimeBar->end();
+        painter_mediaTimeBarBack->begin(this);
+        painter_mediaTimeBarBack->fillRect(QRect(150,490,800,10),QColor(70,70,70,255));
+        painter_mediaTimeBarBack->end();
 
         mediaTimeBar->begin(this);
-        int a = (float)(player->position()*800.0f)/ (float)player->duration();
-        mediaTimeBar->fillRect(QRect(150,490,a,10),QColor(160,160,160,255));
-        mediaTimeBar->end();
+        if(player->position() <= 0){
+            int a = 0;
+            mediaTimeBar->fillRect(QRect(150,490,a,10),QColor(160,160,160,255));
 
+        }else{
+            int a = (float)(player->position()*800.0f)/ (float)player->duration();
+            mediaTimeBar->fillRect(QRect(150,490,a,10),QColor(160,160,160,255));
 
-        if(!isPlaying){
-            playlist->addMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/Below My Feet.mp3"));
-            playlist->addMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/Babel.mp3"));
-
-            playlist->setCurrentIndex(1);
-
-            player->setPlaylist(playlist);
-            player->setVolume(0);
-
-            player->play();
-
-            qDebug() << "hey" << player->duration();
-            isPlaying = true;
         }
+        mediaTimeBar->end();
+
     }
 
 
@@ -164,6 +186,7 @@ void Navi::mousePressEvent(QMouseEvent *eventPress){
     if (eventPress->pos().x() >= 0 && eventPress->pos().x() <=80){
         if (eventPress->pos().y() > 80 && eventPress->pos().y() <=160){
             itemSelected = 1;
+
             update();
 
             qDebug() << "mp";
@@ -185,5 +208,32 @@ void Navi::mousePressEvent(QMouseEvent *eventPress){
             qDebug() << "phone";
         }
     }
+
+    if(itemSelected == 1){
+
+        if (eventPress->pos().x() >= 520 && eventPress->pos().x() <=585){
+            if (eventPress->pos().y() > 525 && eventPress->pos().y() <=585){
+                if (isPlaying){
+                    player->pause();
+                    update();
+                    isPlaying = false;
+                }else{
+                    player->play();
+                    update();
+                }
+            }
+        }
+        if (eventPress->pos().x() >= 450 && eventPress->pos().x() <= 490){
+            if (eventPress->pos().y() > 525 && eventPress->pos().y() <=585){
+              //player->setMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/" + fileList.at(1)));
+            }
+        }
+        if (eventPress->pos().x() >= 610 && eventPress->pos().x() <= 650){
+            if (eventPress->pos().y() > 525 && eventPress->pos().y() <=585){
+                player->setMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/" + fileList.at(1)));
+            }
+        }
+    }
+
 }
 

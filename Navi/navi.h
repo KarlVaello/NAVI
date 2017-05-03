@@ -7,6 +7,8 @@
 #include <QtSvg/QSvgRenderer>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <QDir>
+#include <QStringList>
 
 class Navi : public QWidget
 {
@@ -28,9 +30,12 @@ public:
 private:
 
     //######### GENERAL #########
+    QTime *time;
     QTimer *timer;
 
     QPainter *backGroundRect = new QPainter (this);
+    QPainter *painter_upBar = new QPainter (this);
+    QPainter *painter_timeLabel = new QPainter (this);
     QPainter *paninter_return = new QPainter (this);
     QSvgRenderer *renderer_returnIcon;
 
@@ -52,10 +57,12 @@ private:
     //######### NAV PLAYER #########
     QPainter *painter_backgroundColor = new QPainter (this);
 
-
     //######### MUSIC PLAYER #########
     QPainter *musicPlayer_CardUpBar = new QPainter (this);
     QPainter *musicPlayer_CardDownBar = new QPainter (this);
+    QPainter *painter_mediaTimeBarBack = new QPainter (this);
+
+    QStringList fileList;
 
     QPainter *paniter_musicPlayer_Play = new QPainter (this);
     QSvgRenderer *renderer_playIcon;
@@ -71,6 +78,8 @@ private:
 
     QPainter *musicPlayer_List = new QPainter (this);
     QPainter *musicPlayer_CurrentSongImg = new QPainter (this);
+
+
 
     QMediaPlayer *player = new QMediaPlayer;
     QMediaPlaylist *playlist = new QMediaPlaylist;

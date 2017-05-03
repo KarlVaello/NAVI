@@ -678,11 +678,13 @@ compiler_rcc_clean:
 qrc_resources.cpp: ../Navi/resources.qrc \
 		../../../Qt/5.8/clang_64/bin/rcc \
 		../Navi/Resources/player_PREV.svg \
-		../Navi/Resources/location-on-map.svg \
 		../Navi/Resources/player_STOP.svg \
+		../Navi/Resources/home.svg \
 		../Navi/Resources/player_PLAY.svg \
 		../Navi/Resources/return-button.svg \
+		../Navi/Resources/music.svg \
 		../Navi/Resources/call-answer.svg \
+		../Navi/Resources/navigation.svg \
 		../Navi/Resources/player_NEXT.svg \
 		../Navi/Resources/backg.jpg
 	/Users/cvaello/Qt/5.8/clang_64/bin/rcc -name resources ../Navi/resources.qrc -o qrc_resources.cpp
@@ -698,6 +700,10 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_navi.cpp
 moc_navi.cpp: ../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlaylist \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h \
 		../Navi/navi.h \
 		moc_predefs.h \
 		../../../Qt/5.8/clang_64/bin/moc
@@ -723,12 +729,20 @@ main.o: ../Navi/main.cpp ../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Header
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
 		../Navi/navi.h \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QWidget \
-		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qwidget.h
+		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlaylist \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Navi/main.cpp
 
 navi.o: ../Navi/navi.cpp ../Navi/navi.h \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlaylist \
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qabstractbutton.h \
@@ -861,90 +875,7 @@ navi.o: ../Navi/navi.cpp ../Navi/navi.h \
 		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QDateTime \
-		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QtMultimedia \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qtmultimediaglobal.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qabstractvideobuffer.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qabstractvideofilter.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qabstractvideosurface.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudio.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiobuffer.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiodecoder.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiodecodercontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiodeviceinfo.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudioencodersettingscontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudioformat.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudioinput.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudioinputselectorcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiooutput.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiooutputselectorcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudioprobe.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiorecorder.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiorolecontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiosystem.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qaudiosystemplugin.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcamera.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameracapturebufferformatcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameracapturedestinationcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameracontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameraexposure.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameraexposurecontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcamerafeedbackcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameraflashcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcamerafocus.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcamerafocuscontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameraimagecapture.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameraimagecapturecontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameraimageprocessing.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameraimageprocessingcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcamerainfo.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcamerainfocontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameralockscontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameraviewfindersettings.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcameraviewfindersettingscontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qcamerazoomcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qimageencodercontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaaudioprobecontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaavailabilitycontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediabindableinterface.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediacontainercontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediacontent.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediacontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaencodersettings.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaenumdebug.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediagaplessplaybackcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediametadata.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmedianetworkaccesscontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaobject.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayercontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediarecorder.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediarecordercontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaresource.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaservice.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaserviceproviderplugin.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediastreamscontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediatimerange.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediavideoprobecontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmetadatareadercontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmetadatawritercontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmultimedia.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qradiodata.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qradiodatacontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qradiotuner.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qradiotunercontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qsound.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qsoundeffect.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qtmultimediadefs.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qvideodeviceselectorcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qvideoencodersettingscontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qvideoframe.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qvideoprobe.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qvideorenderercontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qvideosurfaceformat.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qvideowindowcontrol.h \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qtmultimediaversion.h
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o navi.o ../Navi/navi.cpp
 
 qrc_resources.o: qrc_resources.cpp 
