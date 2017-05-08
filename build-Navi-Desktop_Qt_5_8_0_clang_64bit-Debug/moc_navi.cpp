@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Navi_t {
-    QByteArrayData data[1];
-    char stringdata0[5];
+    QByteArrayData data[5];
+    char stringdata0[51];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -31,10 +31,15 @@ struct qt_meta_stringdata_Navi_t {
     )
 static const qt_meta_stringdata_Navi_t qt_meta_stringdata_Navi = {
     {
-QT_MOC_LITERAL(0, 0, 4) // "Navi"
+QT_MOC_LITERAL(0, 0, 4), // "Navi"
+QT_MOC_LITERAL(1, 5, 16), // "deviceDiscovered"
+QT_MOC_LITERAL(2, 22, 0), // ""
+QT_MOC_LITERAL(3, 23, 20), // "QBluetoothDeviceInfo"
+QT_MOC_LITERAL(4, 44, 6) // "device"
 
     },
-    "Navi"
+    "Navi\0deviceDiscovered\0\0QBluetoothDeviceInfo\0"
+    "device"
 };
 #undef QT_MOC_LITERAL
 
@@ -44,22 +49,43 @@ static const uint qt_meta_data_Navi[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       1,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: name, argc, parameters, tag, flags
+       1,    1,   19,    2, 0x0a /* Public */,
+
+ // slots: parameters
+    QMetaType::Void, 0x80000000 | 3,    4,
+
        0        // eod
 };
 
 void Navi::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
-    Q_UNUSED(_a);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Navi *_t = static_cast<Navi *>(_o);
+        Q_UNUSED(_t)
+        switch (_id) {
+        case 0: _t->deviceDiscovered((*reinterpret_cast< const QBluetoothDeviceInfo(*)>(_a[1]))); break;
+        default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 0:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QBluetoothDeviceInfo >(); break;
+            }
+            break;
+        }
+    }
 }
 
 const QMetaObject Navi::staticMetaObject = {
@@ -86,6 +112,15 @@ int Navi::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 1)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 1)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    }
     return _id;
 }
 QT_WARNING_POP

@@ -9,6 +9,8 @@
 #include <QMediaPlaylist>
 #include <QDir>
 #include <QStringList>
+#include <QtBluetooth>
+#include <QBluetoothDeviceDiscoveryAgent>
 
 Navi::Navi(QWidget *parent)
     : QWidget(parent)
@@ -31,18 +33,67 @@ Navi::Navi(QWidget *parent)
     renderer_homeIcon= new QSvgRenderer(QString(":/Resources/home.svg"));
     renderer_musicIcon= new QSvgRenderer(QString(":/Resources/music.svg"));
 
-    QDir export_folder("C:/Users/Karl/Desktop/NAVI/");
+    QDir export_folder("/Users/cvaello/Desktop/NAVI/");
     export_folder.setNameFilters(QStringList()<<"*.mp3");
     qDebug() << export_folder.entryList();
     fileList = export_folder.entryList();
     qDebug() << fileList.at(currentSongPos);
 
-    player->setMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/" + fileList.at(currentSongPos)));
-    player->setVolume(100);
+    player->setMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/" + fileList.at(currentSongPos)));
+    player->setVolume(0);
 
     player->play();
     isPlaying = true;
 
+    QBluetoothLocalDevice localDevice;
+    QString localDeviceName;
+
+    // Check if Bluetooth is available on this device
+    if (localDevice.isValid()) {
+
+        // Turn Bluetooth on
+        localDevice.powerOn();
+
+        // Read local device name
+        localDeviceName = localDevice.name();
+
+        // Make it visible to others
+        localDevice.setHostMode(QBluetoothLocalDevice::HostDiscoverable);
+
+        // Get connected devices
+        QList<QBluetoothAddress> remotes;
+        remotes = localDevice.connectedDevices();
+        qDebug() << localDeviceName;
+        qDebug() << remotes;
+    }
+
+    startDeviceDiscovery();
+
+
+}
+
+
+void Navi::startDeviceDiscovery()
+{
+
+    // Create a discovery agent and connect to its signals
+    QBluetoothDeviceDiscoveryAgent *discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
+
+    connect(discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
+            this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
+
+    // Start a discovery
+    discoveryAgent->start();
+    qDebug() << "hey";
+
+    //...
+}
+
+// In your local slot, read information about the found devices
+void Navi::deviceDiscovered(const QBluetoothDeviceInfo &device)
+{
+    qDebug() << "hoy";
+    qDebug() << "Found new device:" << device.name() << '(' << device.address().toString() << ')';
 }
 
 void Navi::paintEvent(QPaintEvent *)
@@ -230,7 +281,7 @@ void Navi::mousePressEvent(QMouseEvent *eventPress){
             if (eventPress->pos().y() > 525 && eventPress->pos().y() <=585){
                 if(currentSongPos > 0){
                 currentSongPos--;
-                player->setMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/" + fileList.at(currentSongPos)));
+                player->setMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/" + fileList.at(currentSongPos)));
                 player->play();
                 }
             }
@@ -239,7 +290,7 @@ void Navi::mousePressEvent(QMouseEvent *eventPress){
             if (eventPress->pos().y() > 525 && eventPress->pos().y() <=585){
                 if(currentSongPos < fileList.length()-1){
                     currentSongPos++;
-                    player->setMedia(QUrl::fromLocalFile("C:/Users/Karl/Desktop/NAVI/" + fileList.at(currentSongPos)));
+                    player->setMedia(QUrl::fromLocalFile("/Users/cvaello/Desktop/NAVI/" + fileList.at(currentSongPos)));
                     player->play();
                 }
             }

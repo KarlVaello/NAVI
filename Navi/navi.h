@@ -9,6 +9,7 @@
 #include <QMediaPlaylist>
 #include <QDir>
 #include <QStringList>
+#include <QtBluetooth>
 
 class Navi : public QWidget
 {
@@ -93,6 +94,12 @@ private:
 
     //######### PHONE PLAYER #########
 
+    void startDeviceDiscovery();
+
+signals:
+
+public Q_SLOTS:
+    void deviceDiscovered(const QBluetoothDeviceInfo &device);
 
 
 protected:
@@ -100,6 +107,7 @@ protected:
 
     void mouseMoveEvent(QMouseEvent *event) override;
     void mousePressEvent(QMouseEvent *eventPress) override;
+
 
 };
 

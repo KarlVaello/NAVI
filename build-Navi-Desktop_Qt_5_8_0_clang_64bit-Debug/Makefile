@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-DEFINES       = -DQT_QML_DEBUG -DQT_SVG_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_SVG_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_BLUETOOTH_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -mmacosx-version-min=10.9 $(EXPORT_QMAKE_XARCH_CFLAGS) -g -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -mmacosx-version-min=10.9 $(EXPORT_QMAKE_XARCH_CFLAGS) -std=c++0x -g -std=gnu++11 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I../Navi -I. -I../../../Qt/5.8/clang_64/lib/QtSvg.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtMultimediaWidgets.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtGui.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtNetwork.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../../Qt/5.8/clang_64/mkspecs/macx-clang -F/Users/cvaello/Qt/5.8/clang_64/lib
+INCPATH       = -I../Navi -I. -I../../../Qt/5.8/clang_64/lib/QtSvg.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtMultimediaWidgets.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtGui.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtNetwork.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers -I../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../../Qt/5.8/clang_64/mkspecs/macx-clang -F/Users/cvaello/Qt/5.8/clang_64/lib
 QMAKE         = /Users/cvaello/Qt/5.8/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = Navi1.0.0
 DISTDIR = /Users/cvaello/Desktop/NAVI/build-Navi-Desktop_Qt_5_8_0_clang_64bit-Debug/.tmp/Navi1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -headerpad_max_install_names -stdlib=libc++ -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -mmacosx-version-min=10.9 $(EXPORT_QMAKE_XARCH_LFLAGS) -Wl,-rpath,/Users/cvaello/Qt/5.8/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/cvaello/Qt/5.8/clang_64/lib -framework QtSvg -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtMultimediaWidgets -framework QtMultimedia -framework QtNetwork -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/cvaello/Qt/5.8/clang_64/lib -framework QtSvg -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtMultimediaWidgets -framework QtMultimedia -framework QtNetwork -framework QtBluetooth -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -429,6 +429,7 @@ Makefile: ../Navi/Navi.pro ../../../Qt/5.8/clang_64/mkspecs/macx-clang/qmake.con
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl \
 		../../../Qt/5.8/clang_64/lib/QtGui.framework/QtGui.prl \
 		../../../Qt/5.8/clang_64/lib/QtNetwork.framework/QtNetwork.prl \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/QtBluetooth.prl \
 		../../../Qt/5.8/clang_64/lib/QtCore.framework/QtCore.prl
 	$(QMAKE) -o Makefile ../Navi/Navi.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
 ../../../Qt/5.8/clang_64/mkspecs/features/spec_pre.prf:
@@ -615,6 +616,7 @@ Makefile: ../Navi/Navi.pro ../../../Qt/5.8/clang_64/mkspecs/macx-clang/qmake.con
 ../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl:
 ../../../Qt/5.8/clang_64/lib/QtGui.framework/QtGui.prl:
 ../../../Qt/5.8/clang_64/lib/QtNetwork.framework/QtNetwork.prl:
+../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/QtBluetooth.prl:
 ../../../Qt/5.8/clang_64/lib/QtCore.framework/QtCore.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../Navi/Navi.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
@@ -704,10 +706,14 @@ moc_navi.cpp: ../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlaylist \
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QDir \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qdir.h \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
 		../Navi/navi.h \
 		moc_predefs.h \
 		../../../Qt/5.8/clang_64/bin/moc
-	/Users/cvaello/Qt/5.8/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/cvaello/Qt/5.8/clang_64/mkspecs/macx-clang -I/Users/cvaello/Desktop/NAVI/Navi -I/Users/cvaello/Qt/5.8/clang_64/lib/QtSvg.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtGui.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtNetwork.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/Users/cvaello/Qt/5.8/clang_64/lib ../Navi/navi.h -o moc_navi.cpp
+	/Users/cvaello/Qt/5.8/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/cvaello/Qt/5.8/clang_64/mkspecs/macx-clang -I/Users/cvaello/Desktop/NAVI/Navi -I/Users/cvaello/Qt/5.8/clang_64/lib/QtSvg.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtGui.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtNetwork.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers -I/Users/cvaello/Qt/5.8/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/Users/cvaello/Qt/5.8/clang_64/lib ../Navi/navi.h -o moc_navi.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -733,7 +739,11 @@ main.o: ../Navi/main.cpp ../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Header
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlaylist \
-		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h
+		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QDir \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qdir.h \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qstringlist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Navi/main.cpp
 
 navi.o: ../Navi/navi.cpp ../Navi/navi.h \
@@ -743,6 +753,10 @@ navi.o: ../Navi/navi.cpp ../Navi/navi.h \
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlaylist \
 		../../../Qt/5.8/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QDir \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qdir.h \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
 		../../../Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qabstractbutton.h \
@@ -875,7 +889,34 @@ navi.o: ../Navi/navi.cpp ../Navi/navi.h \
 		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/QDateTime \
-		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qdatetime.h
+		../../../Qt/5.8/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/QtBluetooth \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothglobal.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetooth.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothaddress.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothdevicediscoveryagent.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothdeviceinfo.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothhostinfo.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothlocaldevice.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothserver.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothservicediscoveryagent.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothserviceinfo.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothsocket.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothtransfermanager.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothtransferreply.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothtransferrequest.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qbluetoothuuid.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergyadvertisingdata.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergyadvertisingparameters.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergycharacteristic.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergycharacteristicdata.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergyconnectionparameters.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergycontroller.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergydescriptor.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergydescriptordata.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergyservice.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qlowenergyservicedata.h \
+		../../../Qt/5.8/clang_64/lib/QtBluetooth.framework/Headers/qtbluetoothversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o navi.o ../Navi/navi.cpp
 
 qrc_resources.o: qrc_resources.cpp 
